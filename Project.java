@@ -8,7 +8,7 @@ import java.util.Vector;
 public class Project
 {
     private String name;
-    private Vector<Task> tasks;
+    private Set<Task> tasks;
     
     public Project(){
         name = "";

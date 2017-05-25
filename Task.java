@@ -74,12 +74,12 @@ public class Task
         }        
         return getTimeToComplete() + maxPreRequisiteTime;
     }
-    /*
+    
     @Override
     public boolean equals(Object otherObject){
         Task otherTask = (Task) otherObject;
         
         return name.equals(otherTask.name) && timeToComplete == otherTask.timeToComplete;
     }
-    */
+    
 }
