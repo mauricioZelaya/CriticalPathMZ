@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import java.util.List;
+
 
 /**
  * The test class ProjectTest.
@@ -13,14 +15,20 @@ import org.junit.Test;
  */
 public class ProjectTest
 {
+    private Project project;
+    
+    @Before
+    public void setUp(){
+        project = new Project("sample");
+    }
+    
     /**
      * US 0
      */
     @Test
     public void createAnEmptyProject(){
-        Project project = new Project("Project Name");
         assertTrue(project instanceof Project);
-        assertEquals("Project Name", project.getName());
+        assertEquals("sample", project.getName());
     }
     
      /**
@@ -28,7 +36,6 @@ public class ProjectTest
      */
     @Test
     public void calculateTimeToDeliverOfASingleTask(){
-        Project project = new Project("Sample");
         Task singleTask = new Task();
         singleTask.setTimeToComplete(5);
         project.addTask(singleTask);
@@ -41,7 +48,6 @@ public class ProjectTest
      */
     @Test
     public void calculateTimeToDeliveryOfATwoNonDependentTask(){
-        Project project = new Project("Sample");
         Task singleTask1 = new Task("t1", 5);
         Task singleTask2 = new Task("t2", 3);
         project.addTask(singleTask1);
@@ -55,7 +61,6 @@ public class ProjectTest
      */
     @Test
     public void calculateTimeToDeliveryOfATwoDependentTask(){
-        Project project = new Project("Sample");
         Task firstTask = new Task("t1", 5);
         Task secondTask = new Task("t2", 3);
         secondTask.dependsOn(firstTask);
@@ -70,7 +75,6 @@ public class ProjectTest
      */
     @Test
     public void calculateTimeToDeliveryOneTaskDependendsOnOtherTwo(){
-        Project project = new Project("Sample");
         Task firstTask = new Task("t1", 5);
         Task secondTask = new Task("t2", 4);
         Task thirdTask = new Task("t3", 3);
@@ -90,7 +94,6 @@ public class ProjectTest
      */
     @Test
     public void calculateTimeToCompelteForADiamondShapedDependency(){
-        Project project = new Project("Sample");
         Task firstTask = new Task("t1", 5);
         Task secondTask = new Task("t2", 2);
         Task thirdTask = new Task("t3", 6);
@@ -114,7 +117,6 @@ public class ProjectTest
      */
     @Test
     public void calculateTimeToCompelteForACP(){
-        Project project = new Project("Sample");
         Task firstTask = new Task("t1", 5);
         Task secondTask = new Task("t2", 2);
         Task thirdTask = new Task("t3", 6);
@@ -141,7 +143,6 @@ public class ProjectTest
     //US3
     @Test
     public void modifyTaskTimeToCompleteShouldChangeTheProjectTimeToDelivery(){
-        Project project = new Project("Sample");
         Task firstTask = new Task("t1", 5);
         Task secondTask = new Task("t2", 2);
         Task thirdTask = new Task("t3", 6);
@@ -166,12 +167,56 @@ public class ProjectTest
     
     @Test
     public void projectCannotHaveDuplicateTasks(){
-        Project project = new Project("Sample");
         Task firstTask = new Task("t1", 5);
         
         project.addTask(firstTask);
         project.addTask(firstTask);
         
         assertEquals(1, project.countTasks());
+    }
+    
+    @Test
+    public void projectWith7TasksReturn15(){
+        Task firstTask = new Task("t1", 1);
+        Task secondTask = new Task("t2", 5);
+        Task thirdTask = new Task("t3", 3);
+        Task forthTask = new Task("t4", 2);
+        Task fifthTask = new Task("t2", 3);
+        Task sixthTask = new Task("t3", 4);
+        Task seventhTask = new Task("t4", 3);
+        
+        secondTask.dependsOn(firstTask);
+        forthTask.dependsOn(secondTask);
+        thirdTask.dependsOn(firstTask);
+        fifthTask.dependsOn(thirdTask);
+        sixthTask.dependsOn(forthTask);
+        sixthTask.dependsOn(fifthTask);
+        seventhTask.dependsOn(sixthTask);
+        
+        project.addTask(firstTask);
+        project.addTask(secondTask);
+        project.addTask(thirdTask);
+        project.addTask(forthTask);
+        project.addTask(fifthTask);
+        project.addTask(sixthTask);
+        project.addTask(seventhTask);
+        
+        assertEquals(15, project.calculateTimeToDelivery());
+        
+        //List<Task> criticalPath = project.calculateCriticalPath();
+        //assertEquals(5, criticalPath.size());
+        
+    }
+    
+    @Test
+    public void criticalPathListOfAProjectWithOneTaskHasOnlyOneElement(){
+        
+        Task t1 = new Task("t1", 1);
+        project.addTask(t1);
+        
+        List<Task> Expected = project.calculateCriticalPath();
+        
+        List<Task> criticalPath = project.calculateCriticalPath();
+        assertEquals(1, criticalPath.size());
     }
 }

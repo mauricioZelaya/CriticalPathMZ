@@ -1,6 +1,7 @@
 import java.util.Vector;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.List;
 /**
  * Write a description of class Project here.
  *
@@ -43,5 +44,11 @@ public class Project
     
     public int countTasks(){
         return tasks.size();
+    }
+    
+    public List<Task> calculateCriticalPath(){
+        List<Task> path = new Vector<>();
+        //path.add(1);
+        return path;
     }
 }

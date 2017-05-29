@@ -86,4 +86,9 @@ public class Task
     public int hashCode(){
         return name.hashCode() + 53 * timeToComplete;
     }
+    
+    @Override
+    public String toString(){
+        return String.format("<n:%s, t:%s>", name, timeToComplete);
+    }
 }

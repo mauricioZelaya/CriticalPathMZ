@@ -2,13 +2,13 @@
 dependency1.from=TaskTest
 dependency1.to=Task
 dependency1.type=UsesDependency
-dependency2.from=ProjectTest
-dependency2.to=Project
+dependency2.from=Project
+dependency2.to=Task
 dependency2.type=UsesDependency
 dependency3.from=ProjectTest
-dependency3.to=Task
+dependency3.to=Project
 dependency3.type=UsesDependency
-dependency4.from=Project
+dependency4.from=ProjectTest
 dependency4.to=Task
 dependency4.type=UsesDependency
 editor.fx.0.height=735
