@@ -1,4 +1,6 @@
 import java.util.Vector;
+import java.util.Set;
+import java.util.HashSet;
 /**
  * Write a description of class Project here.
  *
@@ -12,12 +14,12 @@ public class Project
     
     public Project(){
         name = "";
-        tasks = new Vector<Task>();
+        tasks = new HashSet<Task>();
     }
     
     public Project(String name){
         this.name = name;
-        tasks = new Vector<Task>();
+        tasks = new HashSet<Task>();
     }
     
     public String getName(){
@@ -25,9 +27,7 @@ public class Project
     }
     
     public void addTask(Task task){
-        if(!tasks.contains(task)){
             tasks.add(task);
-        }
    }    
     
     public int calculateTimeToDelivery(){

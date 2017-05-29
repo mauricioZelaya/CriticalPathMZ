@@ -82,4 +82,8 @@ public class Task
         return name.equals(otherTask.name) && timeToComplete == otherTask.timeToComplete;
     }
     
+    @Override
+    public int hashCode(){
+        return name.hashCode() + 53 * timeToComplete;
+    }
 }
